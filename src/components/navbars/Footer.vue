@@ -34,7 +34,7 @@ div#footer
                 a(href="#" @click.prevent="")
                     icon(name="brands/twitter-square").social-icon
             div#logo
-                img#logo-img(src="@/assets/images/travel-agency-logo-bw.png")
+                img#logo-img(src="@/assets/images/logo_large_bw.png")
 
 </template>
 

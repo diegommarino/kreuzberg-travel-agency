@@ -3,7 +3,7 @@ div#header
     nav.navbar.fixed-top.navbar-light.bg-light
         div#nav-container
             div#logo-box
-                img#nav-logo(src="@/assets/images/travel-agency-logo.png")
+                img#nav-logo(src="@/assets/images/logo_large.png")
             div#label-box
                 span#logo-label Travel Agency
 </template>
