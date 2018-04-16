@@ -1,6 +1,6 @@
 <template lang="pug">
 div#header
-    nav.navbar.fixed-top.navbar-light.bg-light
+    nav.fixed-top.bg-light
         div#nav-container
             div#logo-box
                 img#nav-logo(src="@/assets/images/logo_large.png")

@@ -1,25 +1,51 @@
 <template lang="pug">
 div#place-section
-    div.place-header
-        hr.header-hr
-        span.place-name {{title}}
+    div.place-header(@mouseover="showDisplayButton = true" @mouseleave="showDisplayButton = false")
+        div(v-if="shouldDisplayButton")
+            button.btn.display-button(v-if="displayList" @click="displayList = false")
+                icon(name="th-large")
+            button.btn.display-button(v-if="!displayList" @click="displayList = true")
+                icon(name="list-ul")
+        hr
+        span.name {{title}}
 
-    div.place-cards
-        div.place-card(v-for="card in cards")
+    div.place-cards(:style="{'flex-direction': flexDirection}")
+        div.place-card(v-if="!displayList" v-for="card in cards")
             app-place-card(:imgSrc="imgSrcPath(card.imgSrc)" :cardTitle="card.title" :cardDescription="card.description")
+        div.place-card(v-if="displayList" v-for="card in cards")
+            app-place-card-row(:imgSrc="imgSrcPath(card.imgSrc)" :cardTitle="card.title" :cardDescription="card.description")
 </template>
 
 <script>
 import PlaceCard from './PlaceCard.vue'
+import PlaceCardRow from './PlaceCardRow.vue'
 export default {
   props: ['title', 'cards'],
   components: {
-    'app-place-card': PlaceCard
+    'app-place-card': PlaceCard,
+    'app-place-card-row': PlaceCardRow
+  },
+  data () {
+    return {
+      displayList: false,
+      showDisplayButton: false
+    }
   },
   methods: {
     imgSrcPath (imgName) {
       const url = require(`@/assets/images/places/${imgName}`)
       return url
+    }
+  },
+  computed: {
+    shouldDisplayButton () {
+      const isFeatured = (this.title !== 'Featured')
+      const isHeaderHobered = this.showDisplayButton
+      const isScreenSize768 = window.screen.width >= 1024
+      return isFeatured && isHeaderHobered && isScreenSize768
+    },
+    flexDirection () {
+      return (this.displayList ? 'column' : 'row')
     }
   }
 }
@@ -73,13 +99,18 @@ export default {
   align-items: center;
 }
 
-.header-hr {
+.place-header .display-button {
+  margin: 10px;
+  background-color: #f0f0f0;
+}
+
+.place-header hr {
   flex: 1;
   background-color: red;
   border-color: red;
 }
 
-.place-name {
+.place-header .name {
   text-align: right;
   font-family: "Pacifico";
   font-size: 2rem;
@@ -89,6 +120,5 @@ export default {
   flex: 1;
   display: flex;
   flex-wrap: wrap;
-
 }
 </style>
