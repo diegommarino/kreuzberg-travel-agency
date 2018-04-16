@@ -1,6 +1,6 @@
 <template lang="pug">
 div#place-card
-    div.card(@mouseover="visible = 'visible'" @mouseleave="visible = 'hidden'")
+    div.card
         div.img-overlay
             img.card-img-top(:src="imgSrc")
             div.img-icon
@@ -8,7 +8,7 @@ div#place-card
         div.card-body
             h2.card-title {{cardTitle}}
             p.card-text {{cardDescription}}
-            div.prices-container(:style="{visibility: visible}")
+            div.prices-container
                 div.pill-container
                     div.pill-icon
                         icon(name="user" style="width: 40%")
@@ -21,41 +21,50 @@ div#place-card
                     div.pill-icon
                         icon(name="user-plus")
                     div.pill-text 10€
-        button.btn.btn-lg.btn-block.card-btn(:style="{visibility: visible}")
+        button.btn.btn-lg.btn-block.card-btn
             |Book Now
 </template>
 
 <script>
 export default {
-  props: ['imgSrc', 'cardTitle', 'cardDescription'],
-  data () {
-    return {
-      visible: 'hidden'
-    }
-  }
+  props: ['imgSrc', 'cardTitle', 'cardDescription']
 }
 </script>
 
 <style scoped>
-.card-title {
-  text-align: center;
-  margin-top: 10px;
-  font-family: "Pacifico";
-  color: purple;
+.card {
+  border: solid;
+  border-width: 0px;
+  border-color: #f0f0f0;
+  border-radius: 5px;
+  transition: all .3s;
+  display: flex;
+  flex-direction: row;
+}
+
+.card .img-overlay {
+  flex-basis: 250px;
+  align-self: center;
 }
 
 .card, .card-img-top {
   margin: auto;
 }
 
-.card-img-top {
+.img-overlay .card-img-top {
   max-width: 100%;
-  transition: all 0.3s;
+  transition: all .3s;
 }
 
-.card:hover .card-img-top {
-  filter: brightness(50%);
-  transform: scale(1.4) rotate(-20deg);
+.card .card-body {
+  flex: 1;
+  padding: 15px;
+}
+
+.card-title {
+  margin-top: 10px;
+  font-family: "Pacifico";
+  color: purple;
 }
 
 .img-icon {
@@ -69,24 +78,10 @@ export default {
   opacity: 0;
 }
 
-.card:hover .img-icon {
-  opacity: 1;
-}
-
 .img-overlay {
   overflow: hidden;
   position: relative;
   text-align: center;
-}
-
-.img-overlay::after {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  bottom: 0;
-  border: 15px transparent solid;
-  border-bottom: 15px white solid;
-  content: '';
 }
 
 .card-text {
@@ -124,5 +119,37 @@ export default {
   background-color: #D26258;
   font-family: 'Cuprum';
   border-radius: 0px;
+  flex: 1;
+  align-self: center;
+  transition: all .3s;
+  height: 50px;
 }
+
+.img-overlay::after {
+  position: absolute;
+  right: 0;
+  transform: translateY(50%);
+  bottom: 50%;
+  border: 15px transparent solid;
+  border-right: 15px white solid;
+  content: '';
+}
+
+.card:hover .card-img-top {
+  filter: brightness(50%);
+  transform: scale(1.4) rotate(-20deg);
+}
+
+.card:hover .img-icon {
+  opacity: 1;
+}
+
+.card:hover .card-btn {
+  height: 200px;
+}
+
+.card:hover {
+  border-width: 1px;
+}
+
 </style>
