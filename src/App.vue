@@ -2,19 +2,81 @@
 div#app
     app-header
     div#content-container
-        p Lorem ipsum is a pseudo-Latin text used in web design, typography, layout, and printing in place of English to emphasise design elements over content. It's also called placeholder (or filler) text. It's a convenient tool for mock-ups. It helps to outline the visual elements of a document or presentation, eg typography, font, or layout. Lorem ipsum is mostly a part of a Latin text by the classical author and philosopher Cicero. Its words and letters have been changed by addition or removal, so to deliberately render its content nonsensical; it's not genuine, correct, or comprehensible Latin anymore. While lorem ipsum's still resembles classical Latin, it actually has no meaning whatsoever. As Cicero's text doesn't contain the letters K, W, or Z, alien to latin, these, and others are often inserted randomly to mimic the typographic appearence of European languages, as are digraphs not to be found in the original.
-        p In a professional context it often happens that private or corporate clients corder a publication to be made and presented with the actual content still not being ready. Think of a news blog that's filled with content hourly on the day of going live. However, reviewers tend to be distracted by comprehensible content, say, a random text copied from a newspaper or the internet. The are likely to focus on the text, disregarding the layout and its elements. Besides, random text risks to be unintendedly humorous or offensive, an unacceptable risk in corporate environments. Lorem ipsum and its many variants have been employed since the early 1960ies, and quite likely since the sixteenth century.
+        app-place-section(:title="featured.title" :cards="featured.cards")
+        app-place-section(:title="algarve.title" :cards="algarve.cards")
+        app-place-section(:title="alentejo.title" :cards="alentejo.cards")
     app-footer
 </template>
 
 <script>
 import Header from '@/components/navbars/Header.vue'
 import Footer from '@/components/navbars/Footer.vue'
+import PlaceSection from '@/components/place_cards/PlaceSection.vue'
+
 export default {
   name: 'App',
+  data () {
+    return {
+      featured: {
+        title: 'Featured',
+        cards: null
+      },
+      algarve: {
+        title: 'Algarve',
+        cards: null
+      },
+      alentejo: {
+        title: 'Alentejo',
+        cards: null
+      },
+      cards: [
+        {
+          imgSrc: 'albufeira_1024w.jpg',
+          title: 'Albufeira',
+          description: 'Usu an inani omnes. Eum te timeam dignissim disputando. Clita inimicus tincidunt no mei. Tollit officiis id per.'
+        },
+        {
+          imgSrc: 'monte_gordo_1024w.jpg',
+          title: 'Monte Gordo',
+          description: 'Usu an inani omnes. Eum te timeam dignissim disputando. Clita inimicus tincidunt no mei. Tollit officiis id per.'
+        },
+        {
+          imgSrc: 'odeceixe_1024w.jpg',
+          title: 'Odeceixe',
+          description: 'Usu an inani omnes. Eum te timeam dignissim disputando. Clita inimicus tincidunt no mei. Tollit officiis id per.'
+        },
+        {
+          imgSrc: 'porto_covo_1024w.jpg',
+          title: 'Porto Covo',
+          description: 'Usu an inani omnes. Eum te timeam dignissim disputando. Clita inimicus tincidunt no mei. Tollit officiis id per.'
+        },
+        {
+          imgSrc: 'sines_1024w.jpg',
+          title: 'Sines',
+          description: 'Usu an inani omnes. Eum te timeam dignissim disputando. Clita inimicus tincidunt no mei. Tollit officiis id per.'
+        }
+      ]
+    }
+  },
   components: {
     'app-header': Header,
-    'app-footer': Footer
+    'app-footer': Footer,
+    'app-place-section': PlaceSection
+  },
+  methods: {
+    generateCards (qty) {
+      let cards = []
+      for (let i = 0; i < qty; i++) {
+        const index = Math.floor(Math.random() * 5)
+        cards.push(this.cards[index])
+      }
+      return cards
+    }
+  },
+  mounted () {
+    this.featured.cards = this.generateCards(5)
+    this.algarve.cards = this.generateCards(10)
+    this.alentejo.cards = this.generateCards(10)
   }
 }
 </script>
@@ -45,6 +107,8 @@ export default {
   display: flex;
   flex-direction: column;
   max-width: 1260px;
+  min-width: 320px;
+  padding: 10px;
   margin: auto;
 }
 </style>
