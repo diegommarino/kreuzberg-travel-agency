@@ -39,12 +39,3 @@ rm(path.join(config.build.assetsRoot, config.build.assetsSubDirectory), err => {
     ))
   })
 })
-
-scss: generateLoaders('sass').concat(
-  {
-    loader: 'sass-resources-loader',
-    options: {
-      resources: path.resolve(__dirname, '../src/styles/_main.scss')
-    }
-  }
-)
