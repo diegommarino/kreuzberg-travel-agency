@@ -1,7 +1,6 @@
-# kreuzberg
+# Travel Agency Static Page
 
-> Responsive frontend for a travel agency.
-
+A frontend project built using Vue JS and flexbox. You can access the commits, pull requests and issues to follow the coding stages of the app. The app deploy was made using [surge](https://www.surge.sh/) and you can access it __[here](http://acrid-hill.surge.sh/)__.
 ## Build Setup
 
 ``` bash
